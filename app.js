@@ -8,6 +8,10 @@ const botao_panico = document.getElementById('panico_botao');
 let som = new Audio("sound/alarme.mp3")
 let lampada = true // a lâmpada está OK
 
+// lanterna (pré carregamento)
+let stream, track // variavel de apoio
+inicializarLanterna()
+
 // Iniciar o som quando o botão for pressionado
 botao_panico.addEventListener('mousedown', function() {
     som.play() // Iniciar Audio
@@ -19,9 +23,20 @@ botao_panico.addEventListener('mouseup', function() {
     som.pause() // Para ou pausa o audio
 });
 
-// lanterna (pré carregamento)
-let stream, track // variavel de apoio
-inicializarLanterna()
+//pressionar a tela touch e manter
+botao.addEventListener('touchstart', (event) =>{
+    //console.log("tela pressionado")
+    if(lampada ===true && chave === false){
+        lampadaImg.src = "img/on.jpg" // trocar a imagem
+    }
+})
+// deixar de pressionar a tela touch
+botao.addEventListener('touchend', (event) =>{
+    //console.log("a tela não está sendo pressionada")
+    if(lampada ===true && chave === false){
+        lampadaImg.src = "img/off.jpg" // trocar a imagem
+  }
+})
 
 //lanter (torch)....async (multi processamento) function (variavel)
 async function inicializarLanterna(){
