@@ -4,7 +4,7 @@
  */
 
 const botao = document.getElementById('button')
-let som = new Audio("som/alerta.mp3")
+let som = new Audio("sound/alarme.mp3")
  
 botao.addEventListener('mousedown', (event) => {
     event.preventDefault()
