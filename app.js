@@ -27,12 +27,13 @@ botao_panico.addEventListener('mouseup', function () {
 botao.addEventListener('touchstart', (event) => {
     //console.log("tela pressionado")
     som.play() // Iniciar Audio
-
+    ligar() // Aqui eu chamei a função "ligar".
 })
 // deixar de pressionar a tela touch
 botao.addEventListener('touchend', (event) => {
     //console.log("a tela não está sendo pressionada")
     som.pause() // Para ou pausa o audio
+    desligar() // Aqui eu chamei a função "desligar".
 }
 )
 
