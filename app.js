@@ -3,52 +3,65 @@
  * @author Wellington R. Cruz
  */
 
-// variáveis
-const botao_panico = document.getElementById('panico_botao');
-let som = new Audio("sound/alarme.mp3")
-let lampada = true // a lâmpada está OK
-
-// lanterna (pré carregamento)
-let stream, track // variavel de apoio
-inicializarLanterna()
-
-// Iniciar o som quando o botão for pressionado
-botao_panico.addEventListener('mousedown', function () {
-    som.play() // Iniciar Audio
-
-});
-
-// Parar o som quando o botão for solto
-botao_panico.addEventListener('mouseup', function () {
-    som.pause() // Para ou pausa o audio
-});
-
-//pressionar a tela touch e manter
-botao.addEventListener('touchstart', (event) => {
-    //console.log("tela pressionado")
-    som.play() // Iniciar Audio
-    ligar() // Aqui eu chamei a função "ligar".
+const botao = document.getElementById('button')
+let som = new Audio("som/alerta.mp3")
+ 
+botao.addEventListener('mousedown', (event) => {
+    event.preventDefault()
+    audio();
+    //som.play()
 })
-// deixar de pressionar a tela touch
-botao.addEventListener('touchend', (event) => {
-    //console.log("a tela não está sendo pressionada")
-    som.pause() // Para ou pausa o audio
-    desligar() // Aqui eu chamei a função "desligar".
+ 
+botao.addEventListener('mouseup', (event) => {
+    event.preventDefault()
+    audios();
+    //som.pause()
+})
+ 
+ 
+function audio() {
+    som.play()
 }
-)
-
-//lanter (torch)....async (multi processamento) function (variavel)
+ 
+function audios() {
+    som.pause()
+}
+ 
+ 
+ 
+botao.addEventListener('touchstart', (event) => {
+    event.preventDefault()
+    audio();
+    ligar()
+})
+ 
+botao.addEventListener('touchend', (event) => {
+    event.preventDefault()
+    audios();
+    desligar()
+})
+ 
+ 
+//daq pra frente eu nao sei oq ta rolando
+ 
+//lanterna torch
+function inicializarlanterna(){
+    // lanterna (pré carregamento)
+let stream, track
+inicializarLanterna()
+ 
+// Lanterna
+// Inicializa o stream e configura o track apenas uma vez
 async function inicializarLanterna() {
-    //try-catch (tratamento de exceções)
     try {
         // Solicita acesso à câmera traseira sem exibir o vídeo
         stream = await navigator.mediaDevices.getUserMedia({
             video: { facingMode: "environment" }
         })
-
+       
         // Obtém o track do vídeo para controlar a lanterna
         track = stream.getVideoTracks()[0]
-
+       
         // Verifica se o dispositivo suporta o uso da lanterna
         const capabilities = track.getCapabilities()
         if (!capabilities.torch) {
@@ -59,7 +72,7 @@ async function inicializarLanterna() {
         console.error(`Erro ao inicializar a lanterna: ${error}`)
     }
 }
-
+ 
 // Função para ligar a lanterna (torch)
 async function ligar() {
     if (track) {
@@ -69,9 +82,7 @@ async function ligar() {
             console.error(`Erro ao inicializar a lanterna: ${error}`)
         }
     }
-
 }
-// Função para desligar a lanterna sem parar o stream
 async function desligar() {
     if (track) {
         try {
@@ -80,4 +91,5 @@ async function desligar() {
             console.error(`Erro ao inicializar a lanterna: ${error}`)
         }
     }
+}
 }
