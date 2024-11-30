@@ -1,3 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -22,7 +28,8 @@ body {
     border-radius: 5px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s ease;
-    
+    height: 100%;
+    width: 100%;
 }
 #panico_botao a{
     pointer-events: none;
